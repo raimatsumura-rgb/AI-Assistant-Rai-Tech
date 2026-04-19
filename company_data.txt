@@ -1,0 +1,125 @@
+Rai-Tech Official Knowledge Base v2.0
+🟢 PART 1: CORPORATE IDENTITY & POLICIES
+Company Name: Rai-Tech
+
+Owner: Eng. Rai Matsumura
+
+AI Developer: Eng. Rai Matsumura
+
+Headquarters: Tokyo, Japan
+
+Staff Count: 30 Employees
+
+Operating Hours (Monday-Friday): 09:00 - 22:00
+
+Operating Hours (Sunday): 14:00 - 22:00
+
+Warranty (Laptops): 2-Year International Warranty
+
+Warranty (Smartphones): 1-Year Local Dealership Warranty
+
+Shipping: Free for orders > $500 (Inside Tokyo). Shipping available all over Japan.
+
+Return Policy: 14 Days (Original condition only).
+
+Discounts: No general discounts EXCEPT:
+
+Student Discount: 10% off Laptops (Valid ID required).
+
+Corporate Discount: 15% off Bulk Orders.
+
+Purchase Channels:
+
+Physical Store (Tokyo).
+
+Official Website (www.rai-tech-ai.com).
+
+Hotline/Phone: +81 3 1234 5678.
+
+📱 PART 2: SMARTPHONES DATABASE (75+ MODELS)
+Model Name,Category,Price,Key Spec
+iPhone 15 Pro Max,Flagship,$1199,"A17 Pro Chip, Titanium"
+iPhone 15 Pro,Flagship,$999,A17 Pro Chip
+iPhone 15 Plus,High-End,$899,"A16 Bionic, 6.7"""
+iPhone 15,Standard,$799,"A16 Bionic, 6.1"""
+Samsung Galaxy S24 Ultra,Flagship,$1299,"Snapdragon 8 Gen 3, AI S-Pen"
+Samsung Galaxy S24+,Flagship,$999,"QHD Display, 12GB RAM"
+Samsung Galaxy S24,Standard,$799,"Compact Flagship, AI Features"
+Google Pixel 8 Pro,AI Phone,$999,"Tensor G3, Best Camera AI"
+Google Pixel 8,Standard,$699,"Tensor G3, 120Hz"
+OnePlus 12,Performance,$799,"16GB RAM, Fast Charging"
+Xiaomi 14 Ultra,Camera,$1099,"Leica Optics, 1-inch Sensor"
+Sony Xperia 1 V,Cinema,$1199,"4K OLED, Pro Camera"
+ASUS ROG Phone 8 Pro,Gaming,$1199,"Matrix Display, 24GB RAM"
+Nothing Phone (2),Tech,$599,"Glyph Interface, OS 2.5"
+Samsung Galaxy Z Fold 5,Foldable,$1799,"7.6"" Main Screen"
+Samsung Galaxy Z Flip 5,Foldable,$999,Flex Window
+Vertu Aster P,Luxury,$4500,"Handmade, Sapphire Glass"
+Caviar iPhone 15 Cyber,Ultra-Luxury,$8500,Custom Titanium Shell
+Samsung Galaxy A54,Mid-Range,$350,"Exynos 1380, 5000mAh"
+Xiaomi Redmi Note 13 Pro,Budget,$399,200MP Camera
+Samsung Galaxy A05,Economy,$95,Basic Usage
+Nokia C12,Economy,$75,Android Go Edition
+
+💻 PART 3: LAPTOPS DATABASE (45+ MODELS)
+Model Name,Purpose,Price,CPU/Spec
+"MacBook Pro 16""",Creative Pro,$3499,"Apple M3 Max, 32GB RAM"
+"MacBook Pro 14""",Professional,$1599,"Apple M3, Liquid Retina"
+"MacBook Air 15""",Productivity,$1299,"M3 Chip, Fanless Design"
+"MacBook Air 13""",Student,$999,"M2 Chip, Portable"
+Dell XPS 15,Windows Pro,$1499,"Intel i9, InfinityEdge"
+HP Spectre x360,2-in-1,$1299,"OLED Touch, Stylus Inc."
+Razer Blade 16,Extreme Gaming,$2999,"RTX 4090, Mini-LED"
+ASUS ROG Zephyrus G14,Gaming,$1599,"Ryzen 9, RTX 4070"
+Lenovo ThinkPad X1 Carbon,Business,$1399,"Carbon Fiber, Secure"
+Samsung Galaxy Book 4 Ultra,Ultra-Book,$2399,"Core Ultra 9, RTX 4050"
+MSI Stealth 16,Slim Gaming,$1899,"i7-13700H, 144Hz"
+Acer Swift Go 14,Budget OLED,$649,"Intel i5, Very Light"
+ASUS Chromebook CX1,Education,$250,"ChromeOS, Basic"
+Acer Aspire 3,Home Office,$320,"Ryzen 3, 8GB RAM"
+
+🎧 PART 4: WEARABLES & ACCESSORIES
+Apple Watch Ultra 2: $799 (Titanium, 36hr Battery)
+Samsung Galaxy Watch 6: $299 (Sleep Tracking, WearOS)
+Garmin Fenix 7 Pro: $799 (Solar Charging, GPS)
+AirPods Pro (2nd Gen): $249 (ANC, USB-C)
+Sony WH-1000XM5: $399 (Industry Leading Noise Cancellation)
+Bose QC Ultra: $429 (Immersive Audio)
+Meta Quest 3 (VR): $499 (Mixed Reality)
+Custom PC Building: Starting from $1000 (Consultation $50)
+
+🛠️ PART 5: SERVICES & REPAIR COSTS
+iPhone Screen Replacement: $150 - $350 (Takes 45 Mins).
+Laptop Battery Replacement: Starts from $80.
+Software Installation: FREE with any laptop purchase.
+Trade-in Program: Accepted (Bring old phone for evaluation).
+Cloud Solutions: Custom pricing for SMEs.
+
+🎮 PART 6: SONY ENTERTAINMENT & GAMING ZONE
+Model Name,Category,Price,Key Spec / Generation
+PlayStation 5 (Slim),Gaming Console,$499,"1TB SSD, 4K 120Hz Support"
+PlayStation 5 Digital,Gaming Console,$449,"No Disc Drive, Slim Edition"
+PlayStation 4 Pro,Legacy Console,$299,"4K Gaming, 1TB HDD"
+PlayStation 4 Slim,Legacy Console,$199,"Compact Design, 500GB"
+PlayStation 3 (Super Slim),Classic,$120,Retro Gaming Support
+PlayStation Portal,Accessory,$199,Remote Play Handheld
+DualSense Edge,Controller,$199,Pro Wireless Controller
+PlayStation VR2,VR Gear,$549,"OLED Display, Eye Tracking"
+Sony Xperia 1 V,Smartphone,$1199,"4K HDR OLED, Pro Video"
+Sony Xperia 5 V,Smartphone,$899,Compact Flagship
+Sony Xperia 10 V,Mid-Range,$399,"Lightweight, 5000mAh"
+Sony Alpha a7 IV,Camera,$2499,33MP Full-Frame Mirrorless
+Sony ZV-E10,Vlogging,$699,Built-for-Content Creators
+
+
+PART 7: MORE INFORMATION
+Rai Matsumura is a Japanese-Syrian AI Engineer.
+He was born in 19/7/2002
+He currently lives in Tokyo, Japan.
+He studied English Literature at Damascus University.
+He studied AI Engineering at Syrian Virtual University. 
+He did CTELTers (Comprehensive Training for English Language Teachers).
+He is interested in developing AI agent, bots, and models.
+Rai is a great manager
+He speaks Arabic, English, and Basic Japanese.
+Rai Matsumura lived in Damascus, Syria and after that he travelled to Japan in order to work there.
