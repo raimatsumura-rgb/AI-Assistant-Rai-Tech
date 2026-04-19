@@ -15,6 +15,18 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
 
+# --- تحسينات الأداء: التخزين المؤقت للنماذج (Caching) ---
+
+@st.cache_resource
+def load_embeddings_model():
+    """تحميل نموذج التضمين مرة واحدة فقط لتسريع الاستجابة"""
+    return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
+@st.cache_resource
+def get_llm_model(api_key):
+    """تثبيت نسخة الموديل في الذاكرة لمنع البطء"""
+    return ChatGroq(model="llama-3.1-8b-instant", temperature=0, groq_api_key=api_key)
+
 #txt creation
 def export_chat_to_txt(chat_history):
     chat_text = "Rai-Tech AI Chat History\n"
@@ -30,10 +42,8 @@ def export_chat_to_txt(chat_history):
 # 1. إعداد واجهة الصفحة
 st.set_page_config(page_title="Rai-Tech AI Assistant", page_icon="🤖")
 
-# 2. تعريف اللغة أولاً (حل مشكلة الخطوط الصفراء)
-# --- منطقة اختيار اللغة أولاً لضمان توفرها لكل الكود ---
+# 2. تعريف اللغة أولاً
 with st.sidebar:
-    # حل مشكلة الخط الأصفر في العنوان عبر استخدام قيمة افتراضية بسيطة
     sidebar_title = lang_db["English"]["settings"] 
     st.header(sidebar_title)
     
@@ -43,43 +53,33 @@ with st.sidebar:
         index=0 
     )
 
-# تعريف المتغير العام بعد الاختيار مباشرة
 current_texts = lang_db[selected_lang]
-# 1. تعريف المتغير بقيمة فارغة أولاً لتجنب الخط الأصفر
 api_key_secret = ""
 
-# 2. محاولة جلب المفتاح بأمان من الخزنة
 try:
     if "GROQ_API_KEY" in st.secrets:
         api_key_secret = st.secrets["GROQ_API_KEY"]
 except:
-    # في حال لم تكن الخزنة مهيأة بعد (مثل التشغيل المحلي الأول)
     api_key_secret = ""
 
-# --- بقية الـ Sidebar ---
 with st.sidebar:
     if api_key_secret:
-        # إذا وجده في الخزنة، نثبته كمتغير
         api_key = api_key_secret
         st.success("✅ API Key loaded from Secrets")
     else:
-        # إذا لم يجده، يظهر خانة الإدخال اليدوي
         api_key = st.text_input(current_texts["api_key"], type="password")
     st.markdown("---")
     
     uploaded_pdf = st.file_uploader(current_texts["upload_pdf"], type="pdf")
     st.markdown("---")
         
-    # قسم الواتساب
     st.subheader(current_texts["action_title"])
 
     import urllib.parse
-    # تنظيف رقم الهاتف: أرقام فقط بدون مسافات أو بلس
     company_phone = "81312345678" 
     whatsapp_msg = current_texts["whatsapp_msg"]
     encoded_msg = urllib.parse.quote(whatsapp_msg)
     
-    # دمج الرسالة في الرابط بشكل صحيح
     whatsapp_url = f"https://wa.me/{81312345678}?text={encoded_msg}"
 
     st.markdown(f"""
@@ -100,31 +100,22 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     st.markdown("---")
 
-# 3. قسم تصدير المحادثة
     if "chat_history" in st.session_state and len(st.session_state.chat_history.messages) >=0:
         st.write(f"**{current_texts['export_title']}**")
         
         txt_data = export_chat_to_txt(st.session_state.chat_history.messages)
         
-        # التعديل هنا في الـ label
         st.download_button(
-            label=current_texts["txt_download"], # سيظهر النص المترجم بدلاً من "TXT" فقط
+            label=current_texts["txt_download"], 
             data=txt_data, 
             file_name="rai_tech_chat.txt", 
             mime="text/plain", 
             use_container_width=True
         )
         st.markdown("---")
-                # زر مسح المحادثة المرتبط بملف الترجمة
         if st.sidebar.button(current_texts["clear_chat"], use_container_width=True):
-            # مسح ذاكرة الرسائل
             if "chat_history" in st.session_state:
                 st.session_state.chat_history.messages = []
-            
-            # اختيار اختياري: مسح الاسم أيضاً إذا أردت تصفير كل شيء
-            # if "user_name" in st.session_state:
-            #     st.session_state.user_name = ""
-
             st.rerun()
             st.markdown("---")
 
@@ -137,11 +128,9 @@ with st.sidebar:
 
     st.caption(current_texts["developer_info"])
     
-# الآن العنوان سيعمل بدون أي خطوط صفراء
 st.title(current_texts["title"])
 st.markdown("---")
 
-# 4. تطبيق نظام RTL للعرب
 if selected_lang == "Arabic":
     st.markdown("""
         <style>
@@ -152,37 +141,41 @@ if selected_lang == "Arabic":
         </style>
     """, unsafe_allow_html=True)
 
-# إعدادات الردود الخاصة بالبوت
 system_prompts = {
     "English": "You are a Rai-Tech Sales Assistant. ONLY use the provided filtered Context. Be concise and professional.",
     "Arabic": "أنت مساعد مبيعات في شركة Rai-Tech. استخدم فقط المعلومات المتوفرة في السياق. أجب باللغة العربية حصراً وبأسلوب مهذب.",
-    "Japanese": "あなたはRai-Techの販売アシスタントです。提供されたコンテキストのみを使用してください。丁寧な日本語で対応してください。"
+    "Japanese": "あなたはRai-Techの販売アシスタانتです。提供されたコンテキストのみを使用してください。丁寧な日本語で対応してください。"
 }
 
 if api_key:
     try:
+        # --- تحسين: الـ Caching لعملية بناء الـ Vectorstore ---
         @st.cache_resource
-        def init_rag(_pdf_file):
+        def init_rag(_pdf_file, _api_key):
             documents = TextLoader("company_data.txt", encoding="utf-8").load()
             if _pdf_file:
-                with open("temp_store.pdf", "wb") as f:
-                    f.write(_pdf_file.getbuffer())
-                pdf_loader = PyPDFLoader("temp_store.pdf")
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+                    tmp_file.write(_pdf_file.getbuffer())
+                    tmp_path = tmp_file.name
+                pdf_loader = PyPDFLoader(tmp_path)
                 documents.extend(pdf_loader.load())
             
             text_splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=50)
             final_docs = text_splitter.split_documents(documents)
-            embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+            
+            # استخدام الدالة المخبأة للـ Embeddings
+            embeddings = load_embeddings_model()
             vectorstore = FAISS.from_documents(final_docs, embeddings)
             return vectorstore.as_retriever(search_kwargs={"k": 15})
 
-        retriever = init_rag(uploaded_pdf)
-        model = ChatGroq(model="llama-3.1-8b-instant", temperature=0, groq_api_key=api_key)
+        retriever = init_rag(uploaded_pdf, api_key)
+        
+        # استخدام الدالة المخبأة للـ LLM
+        model = get_llm_model(api_key)
 
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = ChatMessageHistory()
 
-            # --- القطعة المضافة: الرسالة الترحيبية الذكية ---
         if len(st.session_state.chat_history.messages) == 0:
             with st.chat_message("assistant"):
                 st.markdown(current_texts["welcome_msg"])
@@ -207,7 +200,6 @@ if api_key:
         ])      
 
         def get_filtered_context(user_input, docs):
-            # 1. استخراج الميزانية من كلام المستخدم (أول رقم يذكره)
             budget_numbers = re.findall(r'(\d+)', user_input)
             if not budget_numbers:
                 return "\n".join([doc.page_content for doc in docs])
@@ -216,7 +208,6 @@ if api_key:
             filtered_list = []
             found_any_product = False
 
-            # 2. نمط البحث المطور عن العملات بمختلف اللغات ($، دولار، USD، dollar، ドル)
             currency_pattern = r'(?:\$|USD|dollar|دولار|ドル)\s*(\d+)|(\d+)\s*(?:\$|USD|dollar|دولار|ドル)'
 
             for doc in docs:
@@ -224,21 +215,15 @@ if api_key:
                 price_match = re.search(currency_pattern, content, re.IGNORECASE)
                 
                 if price_match:
-                    # استخراج الرقم سواء كان قبل العملة أو بعدها
                     price_str = price_match.group(1) if price_match.group(1) else price_match.group(2)
                     if price_str:
                         item_price = float(price_str)
-                        # المقارنة الحسابية الصارمة
                         if item_price <= user_budget:
                             filtered_list.append(f"PRODUCT: {content}")
                             found_any_product = True
                 else:
-                    # تمرير المعلومات العامة (مثل الموقع والمواعيد) لتوفير سياق للبوت
                     filtered_list.append(f"INFO: {content}")
-            # داخل الدالة عند المقارنة
-         #   if item_price <= user_budget:
-         #       filtered_list.append(f"PRODUCT: {content} - (This is WITHIN budget)") # نؤكد له أنها داخل الميزانية
-                        # 3. إذا لم يجد الفلتر أي منتج يطابق الميزانية
+
             if not found_any_product:
                 no_match_msg = {
                     "English": "CRITICAL: No products found under this budget.",
@@ -266,19 +251,17 @@ if api_key:
             history_messages_key="history",
         )
 
-        # عرض التاريخ
         for msg in st.session_state.chat_history.messages:
             role = "user" if msg.type == "human" else "assistant"
             with st.chat_message(role):
                 st.markdown(msg.content)
 
-        # صندوق الإدخال المترجم
-        if user_query := st.chat_input(lang_db[selected_lang]["input_placeholder"]):
+        if user_query := st.chat_input(current_texts["input_placeholder"]):
             with st.chat_message("user"):
                 st.markdown(user_query)
 
             with st.chat_message("assistant"):
-                with st.spinner(lang_db[selected_lang]["spinner"]):
+                with st.spinner(current_texts["spinner"]):
                     response = full_chain.invoke(
                         {"input": user_query},
                         config={"configurable": {"session_id": "any"}}
@@ -288,5 +271,4 @@ if api_key:
     except Exception as e:
         st.error(f"An error occurred: {e}")
 else:
-    # تحذير الـ API المترجم
-    st.warning(lang_db[selected_lang]["api_warning"])
+    st.warning(current_texts["api_warning"])

@@ -7,3 +7,4 @@ langchain-groq
 langchain-huggingface
 faiss-cpu
 PyPDF2
+sentence-transformers
